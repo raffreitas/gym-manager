@@ -1,6 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using GymManager.API.Extensions;
 
-app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddConfiguration();
+
+builder.Services.AddDatabase();
+
+var app = builder.Build();
 
 app.Run();
