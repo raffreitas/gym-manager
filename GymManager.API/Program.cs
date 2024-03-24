@@ -4,17 +4,14 @@ using GymManager.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder
-    .AddConfiguration();
+builder.AddConfiguration();
+builder.AddSwagger();
 
 builder.Services
     .AddInfrastructure()
     .AddApplication();
 
 builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
