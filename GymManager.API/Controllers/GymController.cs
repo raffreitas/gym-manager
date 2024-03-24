@@ -1,4 +1,5 @@
 ﻿using GymManager.Application.Commands.CreateGym;
+using GymManager.Application.Queries.SearchGymByName;
 using GymManager.Core.Enums;
 
 using MediatR;
@@ -26,5 +27,15 @@ public class GymController : ControllerBase
         await _mediator.Send(createGymCommand);
 
         return Created();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> SearchGym(string name)
+    {
+        var searchGymByNameQuery = new SearchGymByNameQuery(name);
+
+        var gymsViewModel = await _mediator.Send(searchGymByNameQuery);
+
+        return Ok(gymsViewModel);
     }
 }
