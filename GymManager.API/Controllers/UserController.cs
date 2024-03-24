@@ -36,7 +36,7 @@ public class UserController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("/profile/{id:guid}")]
+    [HttpGet("/{id:guid}/profile")]
     public async Task<IActionResult> GetProfile(Guid id)
     {
         var getUserProfileQuery = new GetUserProfileQuery(id);
