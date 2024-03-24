@@ -1,5 +1,4 @@
 ﻿using GymManager.Core;
-using GymManager.Infrastructure.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +10,5 @@ public static class BuilderExtensions
     {
         Configuration.Database.ConnectinString = builder.Configuration
                                                     .GetConnectionString("DefaultConnection") ?? string.Empty;
-    }
-    public static void AddDatabase(this IServiceCollection services)
-    {
-        services.AddDbContext<GymManagerDbContext>(x => x.UseSqlServer(Configuration.Database.ConnectinString));
     }
 }
