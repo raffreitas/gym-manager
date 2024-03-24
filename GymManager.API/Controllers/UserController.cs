@@ -1,4 +1,5 @@
-﻿using GymManager.Application.Commands.RegisterUser;
+﻿using GymManager.Application.Commands.AuthenticateUser;
+using GymManager.Application.Commands.RegisterUser;
 
 using MediatR;
 
@@ -22,6 +23,14 @@ public class UserController : ControllerBase
         await _mediator.Send(registerUserCommand);
 
         return Created();
+    }
+
+    [HttpPost("/authenticate")]
+    public async Task<IActionResult> Authenticate(AuthenticateUserCommand authenticateUserCommand)
+    {
+        var loginViewModel = await _mediator.Send(authenticateUserCommand);
+
+        return Ok(loginViewModel);
     }
 
 }

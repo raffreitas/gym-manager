@@ -10,5 +10,9 @@ public static class BuilderExtensions
     {
         Configuration.Database.ConnectinString = builder.Configuration
                                                     .GetConnectionString("DefaultConnection") ?? string.Empty;
+
+        var secrets = new Configuration.SecretsConfiguration();
+        builder.Configuration.GetSection("Secrets").Bind(secrets);
+        Configuration.Secrets = secrets;
     }
 }
