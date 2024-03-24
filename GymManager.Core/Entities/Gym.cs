@@ -3,6 +3,17 @@ public class Gym : BaseEntity
 {
     protected Gym() { }
 
+    public Gym(string title, decimal latitude, decimal longitude, string? description, string? phone)
+    {
+        Title = title;
+        Latitude = latitude;
+        Longitude = longitude;
+        Description = description;
+        Phone = phone;
+
+        CheckIns = [];
+    }
+
     public Gym(string title, decimal latitude, decimal longitude)
     {
         Title = title;

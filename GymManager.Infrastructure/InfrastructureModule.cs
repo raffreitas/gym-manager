@@ -37,6 +37,7 @@ public static class InfrastructureModule
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IGymRepository, GymRepository>();
 
         return services;
 
