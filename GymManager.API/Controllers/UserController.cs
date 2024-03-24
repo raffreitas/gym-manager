@@ -1,8 +1,10 @@
 ﻿using GymManager.Application.Commands.AuthenticateUser;
 using GymManager.Application.Commands.RegisterUser;
+using GymManager.Application.Queries.GetUserProfile;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManager.API.Controllers;
@@ -33,4 +35,14 @@ public class UserController : ControllerBase
         return Ok(loginViewModel);
     }
 
+    [Authorize]
+    [HttpGet("/profile/{id:guid}")]
+    public async Task<IActionResult> GetProfile(Guid id)
+    {
+        var getUserProfileQuery = new GetUserProfileQuery(id);
+
+        var userProfileViewModel = await _mediator.Send(getUserProfileQuery);
+
+        return Ok(userProfileViewModel);
+    }
 }
