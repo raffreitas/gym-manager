@@ -38,6 +38,7 @@ public static class InfrastructureModule
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IGymRepository, GymRepository>();
+        services.AddScoped<ICheckInRepository, CheckInRepository>();
 
         return services;
 
