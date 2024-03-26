@@ -1,6 +1,6 @@
 ﻿using GymManager.Application.Commands.CreateGym;
 using GymManager.Application.Queries.SearchGymByName;
-using GymManager.Core.Enums;
+using GymManager.Application.Queries.SearchNearbyGyms;
 
 using MediatR;
 
@@ -11,6 +11,7 @@ namespace GymManager.API.Controllers;
 
 [Route("api/gyms")]
 [ApiController]
+[Authorize]
 public class GymController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,6 +36,15 @@ public class GymController : ControllerBase
         var searchGymByNameQuery = new SearchGymByNameQuery(name);
 
         var gymsViewModel = await _mediator.Send(searchGymByNameQuery);
+
+        return Ok(gymsViewModel);
+    }
+
+    [HttpGet("nearby")]
+    public async Task<IActionResult> SearchNearby(decimal latitude, decimal longitude)
+    {
+        var searchNearbyGymsQuery = new SearchNearbyGymsQuery(latitude, longitude);
+        var gymsViewModel = await _mediator.Send(searchNearbyGymsQuery);
 
         return Ok(gymsViewModel);
     }

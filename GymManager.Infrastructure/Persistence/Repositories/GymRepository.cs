@@ -7,6 +7,7 @@ namespace GymManager.Infrastructure.Persistence.Repositories;
 public class GymRepository : IGymRepository
 {
     private readonly GymManagerDbContext _context;
+
     public GymRepository(GymManagerDbContext context)
     {
         _context = context;
@@ -22,7 +23,27 @@ public class GymRepository : IGymRepository
         var gyms = await _context.Gyms
              .AsNoTracking()
              .Where(x => x.Title.Contains(name))
-             .ToListAsync();
+             .ToListAsync(cancellationToken: cancellationToken);
+
+        return gyms;
+    }
+
+    public async Task<IList<Gym>> SearchManyNearbyAsync(decimal latitude, decimal longitude, CancellationToken cancellationToken)
+    {
+        var distanceInKm = 10;
+
+        var gyms = await _context.Gyms
+            .FromSql(@$"
+                SELECT 
+                    [Id],
+                    [Title],
+                    [Description],
+                    [Phone],
+                    [Latitude],
+                    [Longitude]
+                FROM [Gym]
+                WHERE (6371 * ACOS(COS(RADIANS({latitude})) * COS(RADIANS([Latitude])) * COS(RADIANS([Longitude]) - RADIANS({longitude})) + SIN(RADIANS({latitude})) * SIN(RADIANS(latitude)))) <= {distanceInKm}")
+            .ToListAsync(cancellationToken: cancellationToken);
 
         return gyms;
     }
