@@ -19,7 +19,7 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("/register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserCommand registerUserCommand)
     {
         await _mediator.Send(registerUserCommand);
@@ -27,7 +27,7 @@ public class UserController : ControllerBase
         return Created();
     }
 
-    [HttpPost("/authenticate")]
+    [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate(AuthenticateUserCommand authenticateUserCommand)
     {
         var loginViewModel = await _mediator.Send(authenticateUserCommand);
@@ -36,7 +36,7 @@ public class UserController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("/{id:guid}/profile")]
+    [HttpGet("{id:guid}/profile")]
     public async Task<IActionResult> GetProfile(Guid id)
     {
         var getUserProfileQuery = new GetUserProfileQuery(id);

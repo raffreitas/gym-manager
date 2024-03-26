@@ -19,7 +19,7 @@ public class CheckInController : ControllerBase
         => _mediator = mediator;
 
 
-    [HttpGet("/metrics")]
+    [HttpGet("metrics")]
     public async Task<IActionResult> GetUserMetrics()
     {
 
