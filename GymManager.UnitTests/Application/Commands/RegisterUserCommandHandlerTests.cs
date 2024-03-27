@@ -12,7 +12,7 @@ public class RegisterUserCommandHandlerTests
     [Fact]
     public async Task AlreadyExistsUserWithSameEmail_Executed_ReturnUserAlreadyExistsException()
     {
-        // Arange
+        // Arrange
         var userOnDatabase = new User("Test", "test@test.com", "P4SSW0RD**");
 
         var userRepository = Substitute.For<IUserRepository>();
