@@ -9,13 +9,21 @@ public class GymRepository : IGymRepository
     private readonly GymManagerDbContext _context;
 
     public GymRepository(GymManagerDbContext context)
-    {
-        _context = context;
-    }
+        => _context = context;
+
     public async Task AddAsync(Gym gym, CancellationToken cancellationToken)
     {
         await _context.Gyms.AddAsync(gym, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<Gym?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var gym = await _context
+            .Gyms
+            .SingleOrDefaultAsync(g => g.Id.Equals(id), cancellationToken);
+
+        return gym;
     }
 
     public async Task<IList<Gym>> SearchMany(string name, CancellationToken cancellationToken)

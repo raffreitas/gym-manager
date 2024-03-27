@@ -1,4 +1,5 @@
 ﻿using GymManager.API.Extensions;
+using GymManager.Application.Commands.CreateCheckIn;
 using GymManager.Application.Queries.GetMetricsByUser;
 
 using MediatR;
@@ -28,5 +29,12 @@ public class CheckInController : ControllerBase
         var userMetricsViewModel = await _mediator.Send(getMetricsByUserQuery);
 
         return Ok(userMetricsViewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCheckIn(CreateCheckInCommand createCheckInCommand)
+    {
+        await _mediator.Send(createCheckInCommand);
+        return Created();
     }
 }
