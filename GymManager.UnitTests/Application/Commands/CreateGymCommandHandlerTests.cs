@@ -11,7 +11,7 @@ public class CreateGymCommandHandlerTests
     [Fact]
     public async void InputDataIsOk_Execute_GymIsCreated()
     {
-        // Arange
+        // Arrange
         var gymRepositoryMock = Substitute.For<IGymRepository>();
 
         var createGymCommand = new CreateGymCommand("Test Title", "Test Description", "Test phone", 123, 123);
