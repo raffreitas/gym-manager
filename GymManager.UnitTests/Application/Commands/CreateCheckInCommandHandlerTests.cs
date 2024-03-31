@@ -1,4 +1,5 @@
 ﻿using GymManager.Application.Commands.CreateCheckIn;
+using GymManager.Application.Commands.ValidateCheckIn;
 using GymManager.Core.Entities;
 using GymManager.Core.Exceptions;
 using GymManager.Core.Repositories;
@@ -67,7 +68,7 @@ public class CreateCheckInCommandHandlerTests
         );
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(async () =>
+        await Assert.ThrowsAsync<InvalidCheckInException>(async () =>
         {
             await createCheckInCommandHandler.Handle(createCheckInCommand, CancellationToken.None);
         });
@@ -101,7 +102,7 @@ public class CreateCheckInCommandHandlerTests
         );
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(async () =>
+        await Assert.ThrowsAsync<InvalidCheckInException>(async () =>
         {
             await createCheckInCommandHandler.Handle(createCheckInCommand, CancellationToken.None);
         });
@@ -161,5 +162,27 @@ public class CreateCheckInCommandHandlerTests
         {
             await createCheckInCommandHandler.Handle(createCheckInCommand, CancellationToken.None);
         });
+    }
+
+    [Fact]
+    public async void InputIsOk_Executed_CheckInIsValidated()
+    {
+        // Arrange
+        var user = new User("test", "test@test.com", "1235");
+        var gym = new Gym("Test Gym", -20.2441203m, -46.3651947m);
+        var checkIn = new CheckIn(gym, user);
+
+        var checkInRepositoryMock = Substitute.For<ICheckInRepository>();
+        checkInRepositoryMock.GetByIdAsync(Arg.Any<Guid>(), CancellationToken.None)
+            .Returns(checkIn);
+
+        var validateCheckInCommand = new ValidateCheckInCommand(Guid.NewGuid());
+        var validateCheckInCommandHandler = new ValidateCheckInCommandHandler(checkInRepositoryMock);
+
+        // Act
+        await validateCheckInCommandHandler.Handle(validateCheckInCommand, CancellationToken.None);
+
+        // Assert
+        Assert.NotNull(checkIn.ValidatedAt);
     }
 }

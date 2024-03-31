@@ -18,4 +18,9 @@ public class CheckIn : BaseEntity
 
     public Guid UserId { get; private set; }
     public User User { get; private set; } = null!;
+
+    public void Validate()
+    {
+        ValidatedAt = DateTime.UtcNow;
+    }
 }
