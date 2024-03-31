@@ -27,6 +27,11 @@ public class CheckInRepository : ICheckInRepository
         return count;
     }
 
+    public async Task<CheckIn?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var checkIn = await _context.CheckIns.SingleOrDefaultAsync(g => g.Id.Equals(id), cancellationToken);
+        return checkIn;
+    }
 
     public async Task<CheckIn?> GetByUserIdOnDate(Guid userId, DateTime date, CancellationToken cancellationToken)
     {

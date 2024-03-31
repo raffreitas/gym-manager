@@ -1,5 +1,6 @@
 ﻿using GymManager.API.Extensions;
 using GymManager.Application.Commands.CreateCheckIn;
+using GymManager.Application.Commands.ValidateCheckIn;
 using GymManager.Application.Queries.GetMetricsByUser;
 
 using MediatR;
@@ -36,5 +37,14 @@ public class CheckInController : ControllerBase
     {
         await _mediator.Send(createCheckInCommand);
         return Created();
+    }
+
+    [HttpPatch("{id:guid}/validate")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> ValidateCheckIn(Guid id)
+    {
+        var validateCheckInCommand = new ValidateCheckInCommand(id);
+        await _mediator.Send(validateCheckInCommand);
+        return NoContent();
     }
 }
