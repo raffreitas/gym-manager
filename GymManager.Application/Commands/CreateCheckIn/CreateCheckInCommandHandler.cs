@@ -39,12 +39,12 @@ public class CreateCheckInCommandHandler : IRequestHandler<CreateCheckInCommand>
         var distance = CalculateDistanceBetweenCoordinates(fromCoordinate, toCoordinate);
 
         if (distance > MAX_DISTANCE_IN_KILOMETERS)
-            throw new Exception("Não foi possivel fazer check-in nesta academia");
+            throw new InvalidCheckInException();
 
         var checkInOnSameDay = await _checkInRepository.GetByUserIdOnDate(request.UserId, DateTime.UtcNow, cancellationToken);
 
         if (checkInOnSameDay is not null)
-            throw new Exception("Não é possivel fazer mais de um check-in no mesmo dia");
+            throw new InvalidCheckInException("Não é possivel fazer o check-in mais de uma vez no mesmo dia");
 
         var checkIn = new CheckIn(gym, user);
 

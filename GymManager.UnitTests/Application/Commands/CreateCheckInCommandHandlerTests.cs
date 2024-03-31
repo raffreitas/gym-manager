@@ -67,7 +67,7 @@ public class CreateCheckInCommandHandlerTests
         );
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(async () =>
+        await Assert.ThrowsAsync<InvalidCheckInException>(async () =>
         {
             await createCheckInCommandHandler.Handle(createCheckInCommand, CancellationToken.None);
         });
@@ -101,7 +101,7 @@ public class CreateCheckInCommandHandlerTests
         );
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(async () =>
+        await Assert.ThrowsAsync<InvalidCheckInException>(async () =>
         {
             await createCheckInCommandHandler.Handle(createCheckInCommand, CancellationToken.None);
         });
