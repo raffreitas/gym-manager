@@ -26,7 +26,7 @@ public class GymRepository : IGymRepository
         return gym;
     }
 
-    public async Task<IList<Gym>> SearchMany(string name, CancellationToken cancellationToken)
+    public async Task<IList<Gym>> SearchManyAsync(string name, CancellationToken cancellationToken)
     {
         var gyms = await _context.Gyms
              .AsNoTracking()

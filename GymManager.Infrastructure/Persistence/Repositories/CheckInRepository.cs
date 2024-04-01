@@ -33,12 +33,17 @@ public class CheckInRepository : ICheckInRepository
         return checkIn;
     }
 
-    public async Task<CheckIn?> GetByUserIdOnDate(Guid userId, DateTime date, CancellationToken cancellationToken)
+    public async Task<CheckIn?> GetByUserIdOnDateAsync(Guid userId, DateTime date, CancellationToken cancellationToken)
     {
         var checkIn = await _context
             .CheckIns
             .SingleOrDefaultAsync(c => c.UserId.Equals(userId) && c.CreatedAt.Date.Equals(date.Date), cancellationToken);
 
         return checkIn;
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

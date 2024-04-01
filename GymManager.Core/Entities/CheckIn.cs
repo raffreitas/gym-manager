@@ -21,6 +21,9 @@ public class CheckIn : BaseEntity
 
     public void Validate()
     {
+        if (DateTime.UtcNow > CreatedAt.AddMinutes(20))
+            return;
+
         ValidatedAt = DateTime.UtcNow;
     }
 }

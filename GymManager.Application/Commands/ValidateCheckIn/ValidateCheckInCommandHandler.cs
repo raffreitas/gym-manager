@@ -21,5 +21,7 @@ public class ValidateCheckInCommandHandler : IRequestHandler<ValidateCheckInComm
             throw new ResourceNotFoundException();
 
         gym.Validate();
+
+        await _checkInRepository.SaveChangesAsync(cancellationToken);
     }
 }
