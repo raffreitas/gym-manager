@@ -41,4 +41,9 @@ public class CheckInRepository : ICheckInRepository
 
         return checkIn;
     }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }

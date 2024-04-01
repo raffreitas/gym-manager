@@ -7,4 +7,5 @@ public interface ICheckInRepository
     Task<CheckIn?> GetByUserIdOnDate(Guid userId, DateTime date, CancellationToken cancellationToken);
     Task<CheckIn?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task AddAsync(CheckIn checkIn);
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }
