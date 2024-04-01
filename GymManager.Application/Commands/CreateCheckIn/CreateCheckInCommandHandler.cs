@@ -41,7 +41,7 @@ public class CreateCheckInCommandHandler : IRequestHandler<CreateCheckInCommand>
         if (distance > MAX_DISTANCE_IN_KILOMETERS)
             throw new InvalidCheckInException();
 
-        var checkInOnSameDay = await _checkInRepository.GetByUserIdOnDate(request.UserId, DateTime.UtcNow, cancellationToken);
+        var checkInOnSameDay = await _checkInRepository.GetByUserIdOnDateAsync(request.UserId, DateTime.UtcNow, cancellationToken);
 
         if (checkInOnSameDay is not null)
             throw new InvalidCheckInException("Não é possivel fazer o check-in mais de uma vez no mesmo dia");

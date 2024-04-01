@@ -90,7 +90,7 @@ public class CreateCheckInCommandHandlerTests
             .Returns(gym);
         userRepositoryMock.GetByIdAsync(Arg.Any<Guid>(), CancellationToken.None)
             .Returns(user);
-        checkInRepositoryMock.GetByUserIdOnDate(Arg.Any<Guid>(), Arg.Any<DateTime>(), CancellationToken.None)
+        checkInRepositoryMock.GetByUserIdOnDateAsync(Arg.Any<Guid>(), Arg.Any<DateTime>(), CancellationToken.None)
             .Returns(checkIn);
 
         var createCheckInCommand = new CreateCheckInCommand(Guid.NewGuid(), Guid.NewGuid(), 0, 0);

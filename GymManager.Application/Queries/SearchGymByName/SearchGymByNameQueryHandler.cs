@@ -15,7 +15,7 @@ public class SearchGymByNameQueryHandler : IRequestHandler<SearchGymByNameQuery,
 
     public async Task<IList<GymViewModel>> Handle(SearchGymByNameQuery request, CancellationToken cancellationToken)
     {
-        var gyms = await _gymRepository.SearchMany(request.Name, cancellationToken);
+        var gyms = await _gymRepository.SearchManyAsync(request.Name, cancellationToken);
 
         var gymsViewModel = new List<GymViewModel>();
 
