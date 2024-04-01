@@ -12,7 +12,7 @@ public class CreateCheckInCommandHandler : IRequestHandler<CreateCheckInCommand>
     private readonly ICheckInRepository _checkInRepository;
     private readonly IUserRepository _userRepository;
 
-    private const int MAX_DISTANCE_IN_KILOMETERS = 10;
+    private const double MAX_DISTANCE_IN_KILOMETERS = 0.1;
 
     public CreateCheckInCommandHandler(IGymRepository gymRepository, ICheckInRepository checkInRepository, IUserRepository userRepository)
     {

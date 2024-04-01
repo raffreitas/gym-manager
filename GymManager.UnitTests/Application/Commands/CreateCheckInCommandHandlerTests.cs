@@ -26,7 +26,7 @@ public class CreateCheckInCommandHandlerTests
             .Returns(user);
 
 
-        var createCheckInCommand = new CreateCheckInCommand(Guid.NewGuid(), Guid.NewGuid(), -20.2464657m, -46.365935m);
+        var createCheckInCommand = new CreateCheckInCommand(Guid.NewGuid(), Guid.NewGuid(), -20.2441203m, -46.3651947m);
 
         var createCheckInCommandHandler = new CreateCheckInCommandHandler(
             gymRepositoryMock,
