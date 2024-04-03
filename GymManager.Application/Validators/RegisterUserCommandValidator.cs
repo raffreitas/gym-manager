@@ -25,6 +25,9 @@ public partial class RegisterUserCommandValidator : AbstractValidator<RegisterUs
 
     private bool ValidPassword(string password)
     {
+        if (string.IsNullOrEmpty(password))
+            return false;
+
         var regex = PassordValidRegex();
         return regex.IsMatch(password);
     }
